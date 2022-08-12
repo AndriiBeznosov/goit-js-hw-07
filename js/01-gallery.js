@@ -30,9 +30,23 @@ function onGalleryItemClick(e) {
   if (!e.target.classList.contains("gallery__image")) {
     return;
   }
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <img src="${e.target.dataset.source}" width="800" height="600">
-`);
+`,
+    {
+      onClose: (instance) => {
+        window.addEventListener("keydown", onEscKeyPrees);
+
+        function onEscKeyPrees(e) {
+          console.log(e);
+          if (e.code === "Escape") {
+            return instance.close();
+          }
+        }
+      },
+    },
+  );
   instance.show();
 }
 
@@ -42,5 +56,3 @@ function onGalleryItemClick(e) {
 //* Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами. --> готово
 //* Замена значения атрибута src элемента <img> в модальном окне перед открытием. Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox. --> готово
 //?Добавь закрытие модального окна по нажатию клавиши Escape. Сделай так, чтобы прослушивание клавиатуры было только пока открыто модальное окно. У библиотеки basicLightbox есть метод для программного закрытия модального окна.
-
-// class="basicLightbox basicLightbox--img basicLightbox--visible"
