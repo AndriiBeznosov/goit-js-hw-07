@@ -25,7 +25,7 @@ containerPhotoGallery.insertAdjacentHTML("beforeend", addColections());
 
 let lightbox = new SimpleLightbox(".gallery a", {
   className: ".sl-caption.pos-bottom",
-  captionDelay: 2500,
+  captionDelay: 250,
 });
 
 //* Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи. Используй готовый код из первого задания.
