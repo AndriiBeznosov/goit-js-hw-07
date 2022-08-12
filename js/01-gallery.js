@@ -1,24 +1,46 @@
 import { galleryItems } from "./gallery-items.js";
-// Change code below this line
-
 console.log(galleryItems);
 
-const galleryItemsEl = document.querySelector(".gallery");
+const containerPhotoGallery = document.querySelector(".gallery");
 
 function addColections() {
   return galleryItems
-    .map((imageEl) => {
+    .map(({ original, preview, description }) => {
       return `
-    <a class="gallery__link" href="large-image.jpg">
+      <div class="gallery__item">
+    <a class="gallery__link" href="${original}">
       <img
         class="gallery__image"
-        src="${imageEl.preview}"
-        data-source="${imageEl.preview}"
-        alt="Image description"
+        src="${preview}"
+        data-source="${original}"
+        data-lightbox='test'
+        alt="${description}"
       />
-    </a>`;
+    </a>
+    </div>`;
     })
     .join("");
 }
-galleryItemsEl.insertAdjacentHTML("beforeend", addColections());
-console.log(addColections());
+containerPhotoGallery.insertAdjacentHTML("beforeend", addColections());
+containerPhotoGallery.addEventListener("click", onGalleryItemClick);
+
+function onGalleryItemClick(e) {
+  e.preventDefault();
+
+  if (!e.target.classList.contains("gallery__image")) {
+    return;
+  }
+  const instance = basicLightbox.create(`
+    <img src="${e.target.dataset.source}" width="800" height="600">
+`);
+  instance.show();
+}
+
+//*Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи.--> готово
+//* Реализация делегирования на div.gallery и получение url большого изображения. --> готово
+//* Подключение скрипта и стилей библиотеки модального окна basicLightbox. Используй CDN сервис jsdelivr и добавь в проект ссылки на минифицированные (.min) файлы библиотеки. --> готово
+//* Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами. --> готово
+//* Замена значения атрибута src элемента <img> в модальном окне перед открытием. Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox. --> готово
+//?Добавь закрытие модального окна по нажатию клавиши Escape. Сделай так, чтобы прослушивание клавиатуры было только пока открыто модальное окно. У библиотеки basicLightbox есть метод для программного закрытия модального окна.
+
+// class="basicLightbox basicLightbox--img basicLightbox--visible"
