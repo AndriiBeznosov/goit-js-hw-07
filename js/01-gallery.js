@@ -34,20 +34,16 @@ function onGalleryItemClick(e) {
     `
     <img src="${e.target.dataset.source}" width="800" height="600">
 `,
-    {
-      onClose: (instance) => {
-        window.addEventListener("keydown", onEscKeyPrees);
-
-        function onEscKeyPrees(e) {
-          console.log(e);
-          if (e.code === "Escape") {
-            return instance.close();
-          }
-        }
-      },
-    },
   );
-  instance.show();
+  instance.show(() => {
+    window.addEventListener("keydown", onEscKeyPrees);
+    function onEscKeyPrees(e) {
+      if (e.code === "Escape") {
+        instance.close();
+        window.removeEventListener("keydown", onEscKeyPrees);
+      }
+    }
+  });
 }
 
 //*Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи.--> готово
@@ -55,4 +51,4 @@ function onGalleryItemClick(e) {
 //* Подключение скрипта и стилей библиотеки модального окна basicLightbox. Используй CDN сервис jsdelivr и добавь в проект ссылки на минифицированные (.min) файлы библиотеки. --> готово
 //* Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами. --> готово
 //* Замена значения атрибута src элемента <img> в модальном окне перед открытием. Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox. --> готово
-//?Добавь закрытие модального окна по нажатию клавиши Escape. Сделай так, чтобы прослушивание клавиатуры было только пока открыто модальное окно. У библиотеки basicLightbox есть метод для программного закрытия модального окна.
+//*Добавь закрытие модального окна по нажатию клавиши Escape. Сделай так, чтобы прослушивание клавиатуры было только пока открыто модальное окно. У библиотеки basicLightbox есть метод для программного закрытия модального окна.
